@@ -1,13 +1,13 @@
-# Daily Scrum 11-6-25
+# Daily Scrum 11-7-25
 **Attendees:** Mujeeb, Khoa
 
 ## Updates
 
 ### Khoa
-- Began finalizing implementation on logger file
+- Finalized implementation on logger file
 
 ### Mujeeb
-- Began finalizing implementation on logger file
+- Finalized implementation on logger file
 
 
 ## Blockers / Issues
