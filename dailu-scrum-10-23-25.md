@@ -1,13 +1,13 @@
-# Daily Scrum 10-17-25
+# Daily Scrum 10-23-25
 **Attendees:** Mujeeb, Khoa, Jason
 
 ## Updates
 
 ### Khoa
-- Finalized first implementation
+- Worked on creating a logger file
 
 ### Mujeeb
-- Finalized first implementation
+- Worked on creating a logger file
 
 
 ## Blockers / Issues
