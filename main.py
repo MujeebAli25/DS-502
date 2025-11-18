@@ -6,8 +6,9 @@ from prediction import PredictMastery
 from recommendations import GenerateTutorRecommendations
 from dashboard import GenerateDashboard
 from reports import GenerateReports
+from logger import WriteLog
 
-def run_pipeline(csv_path='students.csv'):
+def run_pipeline(csv_path='students.csv', log_file='pipeline_summary.log'):
     print("Loading data...")
     df, topic_cols = LoadData(csv_path)
     print(f"Found topics: {topic_cols}")
@@ -39,6 +40,21 @@ def run_pipeline(csv_path='students.csv'):
     print("Generating reports...")
     reports = GenerateReports(studentProgressDF, topicDifficultyDF, tutorRecs)
     print("Reports generated:", reports)
+
+    # Write log file
+    WriteLog(log_file, {
+        'df': df,
+        'topicDifficultyDF': topicDifficultyDF,
+        'progress_students': progress_students,
+        'studentProgressDF': studentProgressDF,
+        'student_clusters': student_clusters,
+        'mastery_predictions': mastery_predictions_dict,
+        'mastery_pred_df': mastery_pred_df,
+        'tutorRecs': tutorRecs,
+        'dashboard_files': dashboard_files,
+        'reports': reports
+    })
+    print(f"Pipeline log written to {log_file}")
 
     print("Pipeline complete.")
     return {

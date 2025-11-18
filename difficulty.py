@@ -1,9 +1,4 @@
-# difficulty.py
 import pandas as pd
-
-# Calculates difficulty score for each topic:
-# difficulty = 100 - mean_score   (higher => harder)
-# Returns a sorted list of tuples
 
 def CalculateTopicDifficulty(df, topic_cols):
     means = df[topic_cols].mean()

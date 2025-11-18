@@ -1,0 +1,27 @@
+Pipeline run: 2025-11-18 02:00:24.621813
+==================================================
+Number of students: 5
+Topics: ['Calculus', 'Geometry', 'Algebra', 'Statistics']
+
+Topic Difficulty (top 5 hardest):
+- Calculus: difficulty_score=39.2
+- Geometry: difficulty_score=34.4
+- Algebra: difficulty_score=29.6
+- Statistics: difficulty_score=29.4
+
+Number of clusters: 3
+Cluster sizes:
+- Cluster 2: 2 students
+- Cluster 0: 2 students
+- Cluster 1: 1 students
+
+Number of mastery alerts: 7
+
+Generated files:
+- Dashboard heatmap: dashboard_heatmap.png
+- Dashboard difficulty: dashboard_difficulty.png
+- Dashboard clusters: dashboard_clusters.png
+- Report report_pdf: reports_summary.pdf
+- Report student_progress_csv: student_progress.csv
+- Report topic_difficulty_csv: topic_difficulty.csv
+==================================================

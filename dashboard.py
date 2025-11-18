@@ -1,12 +1,7 @@
-# dashboard.py
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-# Saves a few visualizations as PNG files:
-# - heatmap of student-topic performance
-# - topic difficulty leaderboard (bar chart)
-# - clusters scatter using PCA projection (2D)
 def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, topic_cols, output_prefix='dashboard'):
     # Heatmap
     try:
@@ -22,7 +17,7 @@ def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, to
         heatmap_file = f"{output_prefix}_heatmap.png"
         plt.savefig(heatmap_file)
         plt.close()
-    except Exception as e:
+    except Exception:
         heatmap_file = None
 
     # Difficulty leaderboard
@@ -36,27 +31,21 @@ def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, to
         diff_file = f"{output_prefix}_difficulty.png"
         plt.savefig(diff_file)
         plt.close()
-    except Exception as e:
+    except Exception:
         diff_file = None
 
-    # Clusters visualization: project centers/points into 2D using PCA
+    # Clusters visualization: PCA projection
     try:
         from sklearn.decomposition import PCA
         clusters = student_clusters
-        vectors = []
-        ids = []
-        if 'ids' in clusters and clusters['ids']:
-            for (sid, sname) in clusters['ids']:
-                # we expect cluster centers -> but we want the original student vectors
-                ids.append(sname)
         if 'centers' in clusters and clusters['centers']:
             centers = np.array(clusters['centers'])
             pca = PCA(n_components=2)
             projected = pca.fit_transform(centers)
             plt.figure(figsize=(6,6))
             plt.scatter(projected[:,0], projected[:,1])
-            for i, txt in enumerate(range(len(projected))):
-                plt.annotate(f"C{txt}", (projected[i,0], projected[i,1]))
+            for i in range(len(projected)):
+                plt.annotate(f"C{i}", (projected[i,0], projected[i,1]))
             plt.title('Cluster centers (PCA 2D)')
             plt.tight_layout()
             cluster_file = f"{output_prefix}_clusters.png"
@@ -64,7 +53,7 @@ def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, to
             plt.close()
         else:
             cluster_file = None
-    except Exception as e:
+    except Exception:
         cluster_file = None
 
     return {

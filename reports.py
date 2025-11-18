@@ -1,23 +1,13 @@
-# reports.py
 import pandas as pd
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
 def GenerateReports(studentProgressDF, topicDifficultyDF, tutorRecommendations, output_pdf='reports_summary.pdf'):
-    """
-    Generates a multi-page PDF with:
-      - topic difficulty table (as an image/page)
-      - student progress table (as a CSV attached & first pages)
-      - alerts and suggestions
-    Also writes CSV files for each summary.
-    """
-    # Save CSVs
     studentProgressDF.to_csv('student_progress.csv', index=False)
     topicDifficultyDF.to_csv('topic_difficulty.csv', index=False)
 
-    # Build a small PDF
     with PdfPages(output_pdf) as pdf:
-        # Page 1: Topic Difficulty as a table
-        fig, ax = plt.subplots(figsize=(8.27, 11.69))  # A4
+        fig, ax = plt.subplots(figsize=(8.27, 11.69))
         ax.axis('off')
         table = ax.table(cellText=topicDifficultyDF.values, colLabels=topicDifficultyDF.columns, loc='center')
         table.auto_set_font_size(False)
@@ -27,7 +17,6 @@ def GenerateReports(studentProgressDF, topicDifficultyDF, tutorRecommendations, 
         pdf.savefig(fig)
         plt.close(fig)
 
-        # Page 2: Student progress table sample (first 40 rows)
         fig, ax = plt.subplots(figsize=(8.27, 11.69))
         ax.axis('off')
         sample = studentProgressDF.head(40)
@@ -39,7 +28,6 @@ def GenerateReports(studentProgressDF, topicDifficultyDF, tutorRecommendations, 
         pdf.savefig(fig)
         plt.close(fig)
 
-        # Page 3: Alerts & suggestions
         fig, ax = plt.subplots(figsize=(8.27, 11.69))
         ax.axis('off')
         text = "Tutor Alerts and Group Suggestions\n\n"
@@ -57,7 +45,3 @@ def GenerateReports(studentProgressDF, topicDifficultyDF, tutorRecommendations, 
         'student_progress_csv': 'student_progress.csv',
         'topic_difficulty_csv': 'topic_difficulty.csv'
     }
-
-
-# Matplotlib is used here; import quietly to avoid repeating warnings
-import matplotlib.pyplot as plt

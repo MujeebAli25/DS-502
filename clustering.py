@@ -1,10 +1,5 @@
-# clustering.py
 import numpy as np
 from sklearn.cluster import KMeans
-
-
-# Converts the student progress list (from TrackStudentProgress) to a 2D numpy array
-# where each row is the student's scores in the order of topic_cols.
 
 def convertProgressToVectors(progress_students, topic_cols):
     vectors = []
@@ -19,7 +14,6 @@ def ClusterStudents(progress_students, topic_cols, num_clusters=3, random_state=
     vectors, ids = convertProgressToVectors(progress_students, topic_cols)
     if len(vectors) == 0:
         return {'labels': [], 'centers': [], 'ids': ids}
-    # kmeans on raw scores; normalize would be optional
     kmeans = KMeans(n_clusters=min(num_clusters, max(1, len(vectors))), random_state=random_state)
     kmeans.fit(vectors)
     clusters = {

@@ -1,6 +1,3 @@
-# Determine the weak topics for each student
-# Returns a list-of-dicts for each student and a DataFrame summarizing weak topics.
-
 def TrackStudentProgress(df, topic_cols, threshold=70):
     students = []
     rows = []
