@@ -1,4 +1,4 @@
-# Daily Scrum 11-23-25
+# Daily Scrum 11-29-25
 **Attendees:** Mujeeb, Khoa
 
 ## Updates
