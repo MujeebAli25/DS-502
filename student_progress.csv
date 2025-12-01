@@ -1,6 +1,6 @@
-student_id,student_name,weak_topics,score_Algebra,score_Geometry,score_Calculus,score_Statistics
-1,Alice,Calculus,85.0,70.0,60.0,75.0
-2,Bob,"Algebra,Geometry,Calculus,Statistics",60.0,55.0,50.0,65.0
-3,Charlie,,90.0,85.0,80.0,88.0
-4,Denise,Geometry,72.0,68.0,74.0,70.0
-5,Edward,"Algebra,Geometry,Calculus,Statistics",45.0,50.0,40.0,55.0
+student_id,student_name,weak_topics,mastery_percent,risk_score,score_Algebra,score_Geometry,score_Calculus,score_Statistics
+1,Alice,Calculus,75.0,25.0,85.0,70.0,60.0,75.0
+2,Bob,"Algebra,Geometry,Calculus,Statistics",0.0,100.0,60.0,55.0,50.0,65.0
+3,Charlie,,100.0,0.0,90.0,85.0,80.0,88.0
+4,Denise,Geometry,75.0,25.0,72.0,68.0,74.0,70.0
+5,Edward,"Algebra,Geometry,Calculus,Statistics",0.0,100.0,45.0,50.0,40.0,55.0

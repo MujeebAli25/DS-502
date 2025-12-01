@@ -9,39 +9,22 @@ from reports import GenerateReports
 from logger import WriteLog
 
 def run_pipeline(csv_path='students.csv', log_file='pipeline_summary.log'):
-    print("Loading data...")
     df, topic_cols = LoadData(csv_path)
-    print(f"Found topics: {topic_cols}")
 
-    print("Calculating topic difficulty...")
     topicDifficultyDF = CalculateTopicDifficulty(df, topic_cols)
-    print(topicDifficultyDF.head())
 
-    print("Tracking student progress...")
-    progress_students, studentProgressDF = TrackStudentProgress(df, topic_cols, threshold=70)
-    print(f"{len(progress_students)} students processed.")
+    progress_students, studentProgressDF = TrackStudentProgress(df, topic_cols)
 
-    print("Clustering students...")
     student_clusters = ClusterStudents(progress_students, topic_cols, num_clusters=3)
-    print("Clusters:", student_clusters.get('labels', [])[:10])
 
-    print("Predicting mastery...")
     mastery_predictions_dict, mastery_pred_df = PredictMastery(df, topic_cols)
-    print("Predictions computed.")
 
-    print("Generating tutor recommendations...")
     tutorRecs = GenerateTutorRecommendations(progress_students, student_clusters, mastery_predictions_dict, topic_cols, masteryThreshold=60)
-    print(f"Alerts: {len(tutorRecs['alerts'])} | Cluster suggestions: {len(tutorRecs['cluster_suggestions'])}")
 
-    print("Generating dashboard visualizations...")
     dashboard_files = GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, topic_cols)
-    print("Dashboard files:", dashboard_files)
 
-    print("Generating reports...")
     reports = GenerateReports(studentProgressDF, topicDifficultyDF, tutorRecs)
-    print("Reports generated:", reports)
 
-    # Write log file
     WriteLog(log_file, {
         'df': df,
         'topicDifficultyDF': topicDifficultyDF,
@@ -54,9 +37,7 @@ def run_pipeline(csv_path='students.csv', log_file='pipeline_summary.log'):
         'dashboard_files': dashboard_files,
         'reports': reports
     })
-    print(f"Pipeline log written to {log_file}")
 
-    print("Pipeline complete.")
     return {
         'df': df,
         'topicDifficultyDF': topicDifficultyDF,

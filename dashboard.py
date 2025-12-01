@@ -1,9 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
+from sklearn.decomposition import PCA
 
 def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, topic_cols, output_prefix='dashboard'):
-    # Heatmap
+    """
+    Generates heatmap, topic difficulty leaderboard, cluster PCA visualization, and score distributions
+    """
+    dashboard_files = {}
     try:
         scores_df = studentProgressDF[[f"score_{t}" for t in topic_cols]]
         plt.figure(figsize=(10, max(4, len(scores_df)/4)))
@@ -17,10 +20,26 @@ def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, to
         heatmap_file = f"{output_prefix}_heatmap.png"
         plt.savefig(heatmap_file)
         plt.close()
+        dashboard_files['heatmap'] = heatmap_file
     except Exception:
-        heatmap_file = None
+        dashboard_files['heatmap'] = None
 
-    # Difficulty leaderboard
+    try:
+        plt.figure(figsize=(10,5))
+        for t in topic_cols:
+            plt.hist(studentProgressDF[f"score_{t}"], alpha=0.5, label=t, bins=10)
+        plt.xlabel('Score')
+        plt.ylabel('Number of students')
+        plt.title('Score Distribution by Topic')
+        plt.legend()
+        dist_file = f"{output_prefix}_score_dist.png"
+        plt.tight_layout()
+        plt.savefig(dist_file)
+        plt.close()
+        dashboard_files['score_distribution'] = dist_file
+    except Exception:
+        dashboard_files['score_distribution'] = None
+
     try:
         plt.figure(figsize=(8,4))
         plt.bar(topicDifficultyDF['topic'], topicDifficultyDF['difficulty_score'])
@@ -31,12 +50,11 @@ def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, to
         diff_file = f"{output_prefix}_difficulty.png"
         plt.savefig(diff_file)
         plt.close()
+        dashboard_files['difficulty'] = diff_file
     except Exception:
-        diff_file = None
+        dashboard_files['difficulty'] = None
 
-    # Clusters visualization: PCA projection
     try:
-        from sklearn.decomposition import PCA
         clusters = student_clusters
         if 'centers' in clusters and clusters['centers']:
             centers = np.array(clusters['centers'])
@@ -51,13 +69,8 @@ def GenerateDashboard(topicDifficultyDF, studentProgressDF, student_clusters, to
             cluster_file = f"{output_prefix}_clusters.png"
             plt.savefig(cluster_file)
             plt.close()
-        else:
-            cluster_file = None
+            dashboard_files['clusters'] = cluster_file
     except Exception:
-        cluster_file = None
+        dashboard_files['clusters'] = None
 
-    return {
-        'heatmap': heatmap_file,
-        'difficulty': diff_file,
-        'clusters': cluster_file
-    }
+    return dashboard_files

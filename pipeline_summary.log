@@ -1,6 +1,7 @@
-Pipeline run: 2025-11-18 02:00:24.621813
+Pipeline run: 2025-11-30 23:14:56.022854
 ==================================================
 Number of students: 5
+Average student risk score: 50.0
 Topics: ['Calculus', 'Geometry', 'Algebra', 'Statistics']
 
 Topic Difficulty (top 5 hardest):
@@ -14,11 +15,13 @@ Cluster sizes:
 - Cluster 2: 2 students
 - Cluster 0: 2 students
 - Cluster 1: 1 students
+Silhouette score: 0.31555764584128604
 
 Number of mastery alerts: 7
 
 Generated files:
 - Dashboard heatmap: dashboard_heatmap.png
+- Dashboard score_distribution: dashboard_score_dist.png
 - Dashboard difficulty: dashboard_difficulty.png
 - Dashboard clusters: dashboard_clusters.png
 - Report report_pdf: reports_summary.pdf

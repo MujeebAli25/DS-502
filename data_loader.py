@@ -25,4 +25,7 @@ def LoadData(path_or_df="students.csv", from_df=False, id_col='student_id', name
     norm_df = pd.DataFrame(normalized, columns=[f"{c}_norm" for c in topic_cols], index=df.index)
     out_df = pd.concat([df.reset_index(drop=True), norm_df.reset_index(drop=True)], axis=1)
 
+    if df[id_col].duplicated().any():
+        print("Warning: Duplicate student IDs found.")
+
     return out_df, topic_cols
